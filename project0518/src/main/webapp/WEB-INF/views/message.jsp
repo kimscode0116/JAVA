@@ -11,7 +11,9 @@
 
 <body>
   <section class="wrap" style="width: 60%; margin: 0 auto; padding:50px">
-    <p style="padding: 20px; background: #eee; border-radius: 5px; text-align: center;">${message}</p>
+    <p style="padding: 20px; background: #eee; border-radius: 5px; text-align: center;">
+    ${m1}
+    </p>
   </section>
 </body>
 

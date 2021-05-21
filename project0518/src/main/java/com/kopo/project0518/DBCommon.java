@@ -16,7 +16,7 @@ public class DBCommon<T> {
 	private String dbFileName;
 	private String tableName;
 	private Connection connection;
-	public ArrayList<T> dataList;
+	private ArrayList<T> dataList;
 
 	public DBCommon(String dbFileName, String tableName) {
 		this.dbFileName = dbFileName;
@@ -66,7 +66,7 @@ public class DBCommon<T> {
 					query = query + fieldName + " REAL";
 				} else if (fieldType.matches(".*String")) {
 					query = query + fieldName + " TEXT";
-				}
+				} 
 			}
 			if (this.connection == null) {
 				this.open();
@@ -204,7 +204,7 @@ public class DBCommon<T> {
 			if (this.connection == null) {
 				this.open();
 			}
-			String query = "SELECT * FROM " + this.tableName;
+			String query = "SELECT * FROM " + this.tableName + " WHERE ?;";
 			PreparedStatement preparedStatement = this.connection.prepareStatement(query);
 			preparedStatement.setInt(1, 1);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -230,12 +230,10 @@ public class DBCommon<T> {
 			this.close();
 		}
 	}
-
 	public ArrayList<T> selectArrayList(T t) {
 		this.selectData(t);
 		return this.dataList;
 	}
-
 	public String selectDataTableTag(T t) {
 		this.selectData(t);
 		Class<?> dataClass = t.getClass();
@@ -251,15 +249,5 @@ public class DBCommon<T> {
 			}
 		}
 		return returnString;
-	}
-
-	public String print() {
-		T name = dataList.get(0);
-		System.out.println(dataList.get(0));
-		return (String) name;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(dataList.get(0));
 	}
 }
