@@ -15,6 +15,9 @@
     ${m1}
     ${m2}
     ${m3}
+    <br><br>
+        <button type="button" onclick="location.href='/project0521'">홈으로</button>
+   
     </p>
   </section>
 </body>
