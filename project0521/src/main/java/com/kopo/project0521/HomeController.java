@@ -28,10 +28,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/create_table", method = RequestMethod.GET)
 	public String createTable(Locale locale, Model model) {
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		db.createTable(new Student());
-		userDB db = new userDB();
-		db.createTable();
+		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
+		db.createTable(new Student());
 		model.addAttribute("m1", "학생 테이블이 생성되었습니다.");
 		return "message";
 	}
@@ -44,18 +42,12 @@ public class HomeController {
 	@RequestMapping(value = "/insert_action", method = RequestMethod.GET)
 	public String insertmethod(Locale locale, Model model, @RequestParam("student_name") String name,
 			@RequestParam("midScore") String smidScore, @RequestParam("finScore") String sfinScore) {
-//		int stuInputMidScore = Integer.parseInt(smidScore);
-//		int stuInputFinScore = Integer.parseInt(sfinScore);
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String now = sdf.format(Calendar.getInstance().getTime());
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		db.insertData(new Student(name, stuInputMidScore, stuInputFinScore, now));
-
-		double stuInputMidScore = Double.parseDouble(smidScore);
-		double stuInputFinScore = Double.parseDouble(sfinScore);
-
-		userDB db = new userDB();
-		db.insertData(name, stuInputMidScore, stuInputFinScore);
+		int stuInputMidScore = Integer.parseInt(smidScore);
+		int stuInputFinScore = Integer.parseInt(sfinScore);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = sdf.format(Calendar.getInstance().getTime());
+		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
+		db.insertData(new Student(name, stuInputMidScore, stuInputFinScore, now));
 		model.addAttribute("m1", "데이터가 입력되었습니다.");
 		return "message";
 	}
@@ -63,38 +55,35 @@ public class HomeController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String selectData(Locale locale, Model model) {
 
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		ArrayList<Student> student = db.selectArrayList(new Student());
+		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
+		ArrayList<Student> student = db.selectArrayList(new Student());
 
-//		String htmlString = "";
-//		for (int i = 0; i < student.size(); i++) {
-//			htmlString = htmlString + "<tr>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).idx;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).name;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).middleExam;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).finalExam;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).time;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + "<a href = 'update?idx=" + student.get(i).idx + "'>수정</a>";
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + "<a href = 'delete?idx=" + student.get(i).idx + "'>삭제</a>";
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "</tr>";
-//		}
-		userDB db = new userDB();
-		
-		String htmlString = db.selectData();
+		String htmlString = "";
+		for (int i = 0; i < student.size(); i++) {
+			htmlString = htmlString + "<tr>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + student.get(i).idx;
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + student.get(i).name;
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + student.get(i).middleExam;
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + student.get(i).finalExam;
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + student.get(i).time;
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + "<a href = 'update?idx=" + student.get(i).idx + "'>수정</a>";
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "<td>";
+			htmlString = htmlString + "<a href = 'delete?idx=" + student.get(i).idx + "'>삭제</a>";
+			htmlString = htmlString + "</td>";
+			htmlString = htmlString + "</tr>";
+		}
 		model.addAttribute("list", htmlString);
 		return "list";
 	}
@@ -103,9 +92,6 @@ public class HomeController {
 	public String updateTable(Locale locale, Model model, @RequestParam("idx") int idx) {
 		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
 		Student selectStudent = db.detailsData(new Student(), idx);
-		
-//		userDB db = new userDB();
-//		String selectStudent = db.updateDetailsData(idx);
 		
 		if (selectStudent != null) {
 			model.addAttribute("idx", selectStudent);
