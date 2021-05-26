@@ -28,8 +28,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/create_table", method = RequestMethod.GET)
 	public String createTable(Locale locale, Model model) {
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		db.createTable(new Student());
+
 		userDB db = new userDB();
 		db.createTable();
 		model.addAttribute("m1", "학생 테이블이 생성되었습니다.");
@@ -44,12 +43,6 @@ public class HomeController {
 	@RequestMapping(value = "/insert_action", method = RequestMethod.GET)
 	public String insertmethod(Locale locale, Model model, @RequestParam("student_name") String name,
 			@RequestParam("midScore") String smidScore, @RequestParam("finScore") String sfinScore) {
-//		int stuInputMidScore = Integer.parseInt(smidScore);
-//		int stuInputFinScore = Integer.parseInt(sfinScore);
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String now = sdf.format(Calendar.getInstance().getTime());
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		db.insertData(new Student(name, stuInputMidScore, stuInputFinScore, now));
 
 		double stuInputMidScore = Double.parseDouble(smidScore);
 		double stuInputFinScore = Double.parseDouble(sfinScore);
@@ -62,7 +55,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String selectData(Locale locale, Model model) {
-		
+
 		userDB db = new userDB();
 		String htmlString = db.selectData();
 		model.addAttribute("list", htmlString);
@@ -71,10 +64,10 @@ public class HomeController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateTable(Locale locale, Model model, @RequestParam("idx") int idx) {
-		
+
 		userDB db = new userDB();
 		Student selectStudent = db.detailsData(idx);
-		
+
 		if (selectStudent != null) {
 			model.addAttribute("idx", selectStudent.idx);
 			model.addAttribute("student_name", selectStudent.name);
@@ -86,31 +79,18 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/update_action", method = RequestMethod.GET)
-	public String updateAction(Locale locale, Model model, 
-			@RequestParam("idx") int idx,
-			@RequestParam("update_name") String upName, 
-			@RequestParam("update_mid") String upMidScore,
+	public String updateAction(Locale locale, Model model, @RequestParam("idx") int idx,
+			@RequestParam("update_name") String upName, @RequestParam("update_mid") String upMidScore,
 			@RequestParam("update_fin") String upFinScore) {
 		userDB db = new userDB();
-		
+
 		double stuInputMidScore = Double.parseDouble(upMidScore);
 		double stuInputFinScore = Double.parseDouble(upFinScore);
-		
+
 		db.updateData(idx, upName, stuInputMidScore, stuInputFinScore);
-		
+
 		model.addAttribute("m2", "학생 정보가 수정되었습니다.");
 		return "message";
 	}
 
-//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//	public String deleteTable(Locale locale, Model model, @RequestParam("idx") int idx) {
-//		DBCommon<Student> db = new DBCommon<Student>("C:/tomcat/Student0521.db", "student");
-//		Student selectStudent = db.detailsData(new Student(), idx);
-//
-//		if (selectStudent != null) {
-//			db.deleteData(selectStudent);
-//		}
-//		model.addAttribute("m3", "학생 정보가 삭제되었습니다.");
-//		return "message";
-//	}
 }
