@@ -13,7 +13,7 @@
 <body>
   <section class="wrap">
     <form action="update_action">
-      <input type="hidden" name="idx" value="${idx }"/>    
+      <input type="text" name="idx" value="${idx }"/>    
       <label> 수정할 학생의 이름 입력 :
         <input type="text" name="update_name" placeholder="이름" value="${student_name }"/>
       </label>

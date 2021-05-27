@@ -141,7 +141,7 @@ public class userDB<T> {
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "C:/tomcat/Student0525.db",
 					config.toProperties());
 
-			String query = "UPDATE student SET name=?, middleExam=?, finalExam=?, time=datetime('now') WHERE idx=?";
+			String query = "UPDATE Student0525 SET name=?, middleExam=?, finalExam=?, time=datetime('now') WHERE idx=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setString(1, name);
