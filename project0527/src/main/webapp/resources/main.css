@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.wrap {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: linear-gradient( to top, #ffd8f4, #f2c383 );
+}
+
+a {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  background: #f8e9ed;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #804a08;
+}
+
+a:hover, a:active {
+    background: linear-gradient( to right, #ac92fb, #af4979 );
+    color: #e2e2e2;
+}
