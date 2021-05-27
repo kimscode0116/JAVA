@@ -1,0 +1,25 @@
+* SQLite 설치 120번 줄쯤 (테스트)
+
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.34.0</version>
+		</dependency> 
+
+
+
+* jsp 한글 utf-8 적용
+
+
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+
+* css파일 사용하는 경로(href태그)
+
+${pageContext.request.contextPath}/resources/main.css
+
+
+
+
+
+main list 입력하는곳 테이블생성
