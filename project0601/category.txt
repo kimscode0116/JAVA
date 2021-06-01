@@ -1,0 +1,10 @@
+idx
+id
+pwd
+name
+birthday
+address
+created
+updated
+
+idx, id, pwd, name, birthday, address, created, updated

@@ -1,0 +1,36 @@
+.wrap {
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px 0px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 80%;
+}
+
+th {
+	text-align: center;
+	background: #0e5956;
+	color: #E8F5FF;
+	padding: 5px 10px;
+	border: 1px solid #0e5956;
+}
+
+td {
+	text-align: center;
+	padding: 5px 10px;
+	border: 1px solid #f1f1f1;;
+	display:none" 
+}
+
+button {
+	text-align: center;
+	background: #00a474;
+	color: #fff;
+	margin: 0 auto;
+	padding: 5px;
+	font-size: 15px;
+	line-height: 2em;
+	height: 2eml
+}

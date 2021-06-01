@@ -1,0 +1,50 @@
+.wrap {
+	width: 90%;
+	margin: 0 auto;
+	padding: 20px 0px;
+	background: #f8b8c4;
+}
+
+form {
+	width: 100%;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 10px;
+	background: #f4efdb;
+	border-radius: 10px 0px;
+}
+
+input {
+	width: 60%;
+	line-height: 1em;
+	height: 1eml
+}
+
+label {
+	width: 100%;
+	display: inline-block;
+	margin: 10px 0px;
+	padding: 0px 0px 0px 20px;
+}
+
+input[type="submit"] {
+	width: 90%;
+	display: inline-block;
+	margin: 10px;
+	background: #095bad;
+	color: #fff;;
+	border: 1px solid #fff;
+	padding: 10px;
+	height: 3em;
+}
+
+button {
+	text-align: center;
+	background: #90b3e7;
+	color: #fff;
+	margin: 0 auto;
+	padding: 5px;
+	font-size: 15px;
+	line-height: 2em;
+	height: 2eml
+}
