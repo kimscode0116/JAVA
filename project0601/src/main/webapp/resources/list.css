@@ -3,10 +3,17 @@
 	margin: 0 auto;
 	padding: 20px 0px;
 }
+.wrap {
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px 0px;
+}
 
 table {
 	border-collapse: collapse;
-	width: 80%;
+	width: 100%;
+    table-layout: fixed;
+    text-align:center;
 }
 
 th {
@@ -22,6 +29,9 @@ td {
 	padding: 5px 10px;
 	border: 1px solid #f1f1f1;;
 	display:none" 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
 }
 
 button {

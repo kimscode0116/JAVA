@@ -18,7 +18,7 @@
 	</form> -->
 	</div>
 	<section class="wrap">
-		<table>
+		<table >
 			<thead>
 				<tr>
 					<th>idx</th>
