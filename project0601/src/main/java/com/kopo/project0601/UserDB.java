@@ -39,6 +39,7 @@ public class UserDB {
 	}
 
 	public boolean insertDb(People people) {
+
 		// open
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -46,22 +47,20 @@ public class UserDB {
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "C:/tomcat/kopoData.db",
 					config.toProperties());
 
-			// use
-//			String fieldString = "id, pwd, name, birthday, address, created, updated";
-//			String valueString = 
-//					"'" + people.id + "','" +
-//							people.pwd + "','" +
-//							people.name + "','"+ 
-//							people.birthday +"','"+ 
-//							people.address +"','" +
-//							people.created +"','" +
-//							people.updated +"'";
-//			String query = "INSERT INTO login0601 (" + fieldString + ") VALUES (" + valueString + ");";
-//			Statement statement = connection.createStatement();
-//			int result = statement.executeUpdate(query);
-
 			// password hash md5, sha .... sha256
 			people.pwd = this.sha256(people.pwd);
+
+			String query2 = "SELECT * FROM login0601 WHERE id = ?";
+			PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+			preparedStatement2.setString(1, people.id);
+			ResultSet resultSet = preparedStatement2.executeQuery();
+			if (resultSet.next()) {
+				// next가 된다는건 조회가 됐다는것 => 중복 데이터가 존재한는 것
+				preparedStatement2.close();
+				connection.close();
+				return false;
+			}
+			preparedStatement2.close();
 
 			String fieldString = "id, pwd, name, birthday, address, created, updated";
 			String query = "INSERT INTO login0601 (" + fieldString + ") VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -73,13 +72,16 @@ public class UserDB {
 			preparedStatement.setString(5, people.address);
 			preparedStatement.setString(6, people.created);
 			preparedStatement.setString(7, people.updated);
-			int result = preparedStatement.executeUpdate();
+			int finalResult = preparedStatement.executeUpdate();
 
-			if (result < 1) {
+			if (finalResult < 1) {
+				preparedStatement.close();
+				connection.close();
 				return false;
 			}
 			preparedStatement.close();
 			connection.close();
+			return true;
 			// close
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -90,8 +92,49 @@ public class UserDB {
 		}
 		return true;
 	}
+	
+	public boolean loginDB(People people) {
+		System.out.println(people.id);
+		System.out.println(people.pwd);
+		// open
+		try {
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "C:/tomcat/kopoData.db",
+					config.toProperties());
 
-	// sha256 비밀번호 암호화 해시기법
+//			people.pwd = this.sha256(people.pwd);
+
+			String query2 = "SELECT * FROM login0601 WHERE id = ? AND pwd = ?";
+			PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+			preparedStatement2.setString(1, people.id);
+			preparedStatement2.setString(2, people.pwd);
+
+			ResultSet resultSet = preparedStatement2.executeQuery();
+			if (resultSet.next()) {
+				// next가 된다는건 조회가 됐다는것 => 중복 데이터가 존재한는 것
+				// 여기서는 있어야 성공임
+				System.out.println(111);
+				preparedStatement2.close();
+				connection.close();
+				return true;
+			} else {
+				preparedStatement2.close();
+				connection.close();
+				return false;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// sha256 비밀번호 암호화 해시기법(단방향 암호화)
 	public String sha256(String msg) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -153,7 +196,6 @@ public class UserDB {
 		return resultString;
 	}
 
-
 	public People detailsData(int idx) {
 		People resultData = new People();
 		try {
@@ -172,7 +214,7 @@ public class UserDB {
 				resultData.pwd = resultSet.getString("pwd");
 				resultData.name = resultSet.getString("name");
 				resultData.birthday = resultSet.getString("birthday");
-				resultData.address = resultSet.getString("address"); 
+				resultData.address = resultSet.getString("address");
 				resultData.created = resultSet.getString("created");
 				resultData.updated = resultSet.getString("updated");
 			}
@@ -204,12 +246,11 @@ public class UserDB {
 			preparedStatement.setString(6, people.updated);
 			preparedStatement.setInt(7, people.idx);
 			int result = preparedStatement.executeUpdate();
-			if(result<1) {
+			if (result < 1) {
 				preparedStatement.close();
 				connection.close();
 				return false;
-			}
-			else {
+			} else {
 				preparedStatement.close();
 				connection.close();
 				return true;

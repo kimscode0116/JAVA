@@ -1,9 +1,13 @@
 package com.kopo.project0601;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,69 +48,127 @@ public class HomeController {
 	public String insert(Locale locale, Model model) {
 		return "insert";
 	}
-	
-	@RequestMapping(value = "/insert_action", method = RequestMethod.GET)
-	public String insertAction(Locale locale, Model model, 
-			@RequestParam("id") String id,
-			@RequestParam("pwd") String pwd, 
-			@RequestParam("name") String name, 
-			@RequestParam("birthday") String birthday,
-			@RequestParam("address") String address) {
+
+	@RequestMapping(value = "/insert_action", method = RequestMethod.POST)
+	public String insertAction(HttpServletRequest request, Locale locale, Model model) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
+		String birthday = request.getParameter("birthday");
+		String address = request.getParameter("address");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String now = sdf.format(Calendar.getInstance().getTime());
 		People people = new People(id, pwd, name, birthday, address, now, now);
 		UserDB db = new UserDB();
 		boolean isSuccess = db.insertDb(people);
-		model.addAttribute("m1", "로그인 정보가 입력되었습니다.");
+		if (isSuccess == true) {
+			model.addAttribute("m1", "로그인 정보가 입력되었습니다.");
+		} else if (isSuccess == false) {
+			model.addAttribute("m1", "중복된 id가 존재합니다.");
+		}
 		return "message";
 	}
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String selectData(Locale locale, Model model) {
 
-		UserDB db = new UserDB();
-		String htmlString = db.selectData();
-		model.addAttribute("list", htmlString);
-		return "list";
-	}
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateTable(Locale locale, Model model, @RequestParam("idx") int idx) {
-		UserDB db = new UserDB();
-		People selectPeople = db.detailsData(idx);
-		if (selectPeople != null) {
-			model.addAttribute("idx", selectPeople.idx);
-			model.addAttribute("update_id", selectPeople.id);
-			model.addAttribute("update_pwd", selectPeople.pwd);
-			model.addAttribute("update_name", selectPeople.name);
-			model.addAttribute("update_birthday", selectPeople.birthday);
-			model.addAttribute("update_address", selectPeople.address);
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String selectData(HttpServletRequest request, Locale locale, Model model ) {
+		HttpSession session = request.getSession();
+		try {
+			boolean isLogin = (Boolean) session.getAttribute("is_login");
+
+			if (isLogin) {
+				UserDB db = new UserDB();
+				String htmlString = db.selectData();
+				model.addAttribute("list", htmlString);
+				return "list";
+
+			} else {
+				model.addAttribute("m1", "로그인이 필요합니다");
+				return "message";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("m1", "로그인 에러");
+			return "message";
 		}
+
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginMethod(Locale locale, Model model) {
+		return "login";
+	}
+
+	@RequestMapping(value = "/login_action", method = RequestMethod.POST)
+	public String loginAction(HttpServletRequest request, Locale locale, Model model) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		
+		System.out.println(id+ ": 오류 찾기 :" + pwd +": 비밀번호");
+		People people = new People(id, pwd);
+		UserDB db = new UserDB();
+		boolean isSuccess = db.loginDB(people);
+		
+		if (isSuccess) {
+			HttpSession session = request.getSession();
+			session.setAttribute("is_login", true);
+			
+			return "redirect:/list";
+		}
+		System.out.println("오류");
+		return "redirect:/login";
+	}
+
+//	@RequestMapping(value = "/update", method = RequestMethod.GET)
+//	public String updateTable(Locale locale, Model model, @RequestParam("idx") int idx) {
+//		UserDB db = new UserDB();
+//		People selectPeople = db.detailsData(idx);
+//		if (selectPeople != null) {
+//			model.addAttribute("idx", selectPeople.idx);
+//			model.addAttribute("update_id", selectPeople.id);
+//			model.addAttribute("update_pwd", selectPeople.pwd);
+//			model.addAttribute("update_name", selectPeople.name);
+//			model.addAttribute("update_birthday", selectPeople.birthday);
+//			model.addAttribute("update_address", selectPeople.address);
+//		}
+//		return "update";
+//	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateTable(Locale locale, Model model) {
 		return "update";
 	}
-	@RequestMapping(value = "/update_action", method = RequestMethod.GET)
-	public String updateAction(Locale locale, Model model, 
-			@RequestParam("idx") int idx,
-			@RequestParam("update_id") String upId, 
-			@RequestParam("update_pwd") String upPwd,
-			@RequestParam("update_name") String upName, 
-			@RequestParam("update_birthday") String upBirthday, 
+
+	@RequestMapping(value = "/update_action", method = RequestMethod.POST)
+	public String updateAction(Locale locale, Model model, @RequestParam("idx") int idx,
+			@RequestParam("update_id") String upId, @RequestParam("update_pwd") String upPwd,
+			@RequestParam("update_name") String upName, @RequestParam("update_birthday") String upBirthday,
 			@RequestParam("update_address") String upAddress) {
 		UserDB db = new UserDB();
-		
+
 		People selectPeople = db.detailsData(idx);
 		String firstCreatedTime = selectPeople.created;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String now = sdf.format(Calendar.getInstance().getTime());
-		
-		People people = new People(idx, upId, upPwd, upName, upBirthday, upAddress,firstCreatedTime, now);
+
+		People people = new People(idx, upId, upPwd, upName, upBirthday, upAddress, firstCreatedTime, now);
 		boolean isSuccess = db.updateData(people);
-		if(isSuccess) {
-		model.addAttribute("m2", "학생 정보가 수정되었습니다.");
-		}
-		else model.addAttribute("m2", "DB ERROR");
+		if (isSuccess) {
+			model.addAttribute("m2", "학생 정보가 수정되었습니다.");
+		} else
+			model.addAttribute("m2", "DB ERROR");
 		return "message";
 	}
-	
+
 }

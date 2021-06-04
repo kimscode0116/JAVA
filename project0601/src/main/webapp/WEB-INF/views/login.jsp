@@ -21,17 +21,14 @@
 	</header>
 	<section class="wrap">
 
-		<form action="update_action" method="post">
+		<form action="login_action" method="GET">
 			<h3>
-				<label> 기존 아이디 </label> <input type="text" name="update_id" placeholder="아이디를 입력하세요" />
+				<label> 아이디 </label> <input type="text" name="id" id = "id" placeholder="아이디를 입력하세요" />
 			</h3>
 			<h3>
-				<label> 기존 비밀번호 </label> <input type="password" name="update_pwd" placeholder="비밀번호를 입력하세요" />
+				<label> 비밀번호 </label> <input type="password" name="pwd" id = "pwd"
+					placeholder="비밀번호를 입력하세요" />
 			</h3>
-			<h3>
-				<label> 기존 비밀번호 </label> <input type="password" name="update_pwd" placeholder="비밀번호를 입력하세요" />
-			</h3>
-			
 			<input type="submit" value="입력 완료" />
 		</form>
 	</section>

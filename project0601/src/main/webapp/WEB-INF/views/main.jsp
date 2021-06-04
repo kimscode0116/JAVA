@@ -11,7 +11,9 @@
   <body>
     <section class="wrap">
       <a href="list">목록보기</a>
-      <a href="insert">직원정보 입력</a>
+      <a href="login">로그인</a>
+      <a href="insert">회원가입 하기</a>
+	  <a href="update">개인정보 수정</a>
       <a href="create">테이블 생성</a>
     </section>
   </body>

@@ -41,4 +41,9 @@ public class People {
 		this.address = userAddress;
 		this.updated = updateTime;
 	}
+	
+	People(String userId, String userPwd) {
+		this.id = userId;
+		this.pwd = userPwd;
+	}
 }

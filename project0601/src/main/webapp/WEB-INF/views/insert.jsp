@@ -18,7 +18,7 @@
 			</div>
   </header>
   <section class="wrap">
-    <form action="insert_action" method="get">
+    <form action="insert_action" method="post">
       <h3>
       <label> 아이디 </label>
       <span>
