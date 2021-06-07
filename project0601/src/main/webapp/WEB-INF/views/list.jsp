@@ -12,10 +12,10 @@
 </head>
 <body>
 <div style="text-align: center;">
-<!-- 	<form action="list_Action" method="get">
+	<form action="list_Action" method="GET">
 		이름 : <input type="text" name="userSearch" value="" /> 
 		<input type="submit" value="검색" />
-	</form> -->
+	</form> 
 	</div>
 	<section class="wrap">
 		<table >

@@ -21,7 +21,7 @@
 	</header>
 	<section class="wrap">
 
-		<form action="update_action" method="post">
+		<form action="update_action" method="GET">
 			<h3>
 				<label> 기존 아이디 </label> <input type="text" name="update_id" placeholder="아이디를 입력하세요" />
 			</h3>

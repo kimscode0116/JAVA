@@ -49,7 +49,7 @@ public class HomeController {
 		return "insert";
 	}
 
-	@RequestMapping(value = "/insert_action", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert_action", method = RequestMethod.GET)
 	public String insertAction(HttpServletRequest request, Locale locale, Model model) {
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -104,7 +104,7 @@ public class HomeController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/login_action", method = RequestMethod.POST)
+	@RequestMapping(value = "/login_action", method = RequestMethod.GET)
 	public String loginAction(HttpServletRequest request, Locale locale, Model model) {
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -114,7 +114,6 @@ public class HomeController {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		
-		System.out.println(id+ ": 오류 찾기 :" + pwd +": 비밀번호");
 		People people = new People(id, pwd);
 		UserDB db = new UserDB();
 		boolean isSuccess = db.loginDB(people);
@@ -149,7 +148,7 @@ public class HomeController {
 		return "update";
 	}
 
-	@RequestMapping(value = "/update_action", method = RequestMethod.POST)
+	@RequestMapping(value = "/update_action", method = RequestMethod.GET)
 	public String updateAction(Locale locale, Model model, @RequestParam("idx") int idx,
 			@RequestParam("update_id") String upId, @RequestParam("update_pwd") String upPwd,
 			@RequestParam("update_name") String upName, @RequestParam("update_birthday") String upBirthday,
