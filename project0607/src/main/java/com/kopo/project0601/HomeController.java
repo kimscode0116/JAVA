@@ -123,7 +123,9 @@ public class HomeController {
 			HttpSession session2 = request.getSession();
 
 			session.setAttribute("is_login", true);
-			session2.setAttribute("is_login", true);
+			session.setAttribute("loin_id", id);
+			session.setAttribute("loin_pwd", pwd);
+
 			
 			return "redirect:/";
 		}
@@ -148,9 +150,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateTable(HttpServletRequest request, Locale locale, Model model) {
-		HttpSession session2 = request.getSession();
+		HttpSession session = request.getSession();
 		try {
-			boolean isLogin = (Boolean) session2.getAttribute("is_login");
+			boolean isLogin = (Boolean) session.getAttribute("is_login");
+//			String id = (Stirng) session.getAttribute("login_id");
 
 			if (isLogin) {			
 				return "update";

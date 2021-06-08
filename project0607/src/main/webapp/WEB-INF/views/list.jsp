@@ -11,14 +11,58 @@
 	href='${pageContext.request.contextPath}/resources/list.css'>
 </head>
 <body>
-<div style="text-align: center;">
+	<header>
+		<div class="logo-wrap">
+			<img src="<spring:url value='/resources/logo1.png'/>"
+				onclick="location.href='/project0607'">
+
+			<!-- <a href="/project0607"><img src="logo1.png"></a> -->
+		</div>
+		<div class="instagram-wrap">
+			<a href="https://www.instagram.com/kkeehhh/" target='_blank'> <img
+				src="<spring:url value='/resources/instagram_logo.png'/>">
+			</a>
+		</div>
+	</header>
+	<nav>
+		<hr width="70%">
+		<ul>
+			<li>
+				<div class="menu">
+					<a href="login">LOGIN</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu">
+					<a href="insert">SIGNUP</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu">
+					<a href="update">EDIT PROFILE</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu">
+					<a href="list">LIST</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu">
+					<a href="create">CREATE</a>
+				</div>
+			</li>
+		</ul>
+		<hr width="70%">
+	</nav>
+	<!-- <div style="text-align: center;">
 	<form action="list_Action" method="GET">
 		이름 : <input type="text" name="userSearch" value="" /> 
 		<input type="submit" value="검색" />
 	</form> 
-	</div>
+	</div> -->
 	<section class="wrap">
-		<table >
+		<table>
 			<thead>
 				<tr>
 					<th>idx</th>
@@ -35,9 +79,9 @@
 			<tbody>${list}
 			</tbody>
 		</table>
-		<br/>
+		<br />
 		<div style="text-align: center;">
-		<button type="button" onclick="location.href='/project0601'" >홈으로</button>
+			<button type="button" onclick="location.href='/project0601'">홈으로</button>
 		</div>
 	</section>
 
