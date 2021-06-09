@@ -1,0 +1,57 @@
+
+header {
+    padding-top: 62px;
+    padding-bottom: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+.logo-wrap img {
+	width:500px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.instagram-wrap img {
+	width:20px
+}
+/* 네비게이션 바에 목록 구성하기s */
+nav ul {
+    width: 100%;
+    /* background-color: rgba(10, 42, 39, 0.983); */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+		  text-align: center;
+}
+/* 메뉴들이 나란히 나타날 수 있게 해주는 기능 */
+nav ul li {
+    display: inline-block;
+}
+
+.menu{
+	color: white;
+	 padding: 10px;
+	 font-size: 16px;
+	 cursor: pointer;
+}
+.menu a {
+	color: #0c2d45;
+padding: 0px 35px;
+text-decoration: none;
+display: block;
+}
+
+.menu:hover:not(.home){
+    background-color: #f6f6e9;
+    color: white;
+}
+
+/* margin	좌측 오토로 설정하면 가운데 정렬 */
+.wrap img {
+width:800px;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
