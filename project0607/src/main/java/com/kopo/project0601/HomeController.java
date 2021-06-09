@@ -66,7 +66,9 @@ public class HomeController {
 		String now = sdf.format(Calendar.getInstance().getTime());
 		People people = new People(id, pwd, name, birthday, address, now, now);
 		UserDB db = new UserDB();
+		
 		boolean isSuccess = db.insertDb(people);
+		
 		if (isSuccess == true) {
 			model.addAttribute("m1", "로그인 정보가 입력되었습니다.");
 		} else if (isSuccess == false) {
