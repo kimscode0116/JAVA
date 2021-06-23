@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class prac2 {
 	public static void main(String[] args) {
 		prac2 pb = new prac2();
-		int[] inputAge = { 66, 61, 22 };
+		int[] inputAge = { 66, 61, 22, 100 };
 		int answer = pb.solution(inputAge);
 		System.out.println(answer);
 	}

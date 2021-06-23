@@ -9,10 +9,13 @@ public class prac3 {
 		int turnNum = sc.nextInt();
 		String fullNumber = "";
 		
-		for(int i = 1; i < 9999; i++) {
+		for(int i = 0; i < 9999; i++) {
 			fullNumber += i;
 		}
-		
+		System.out.println(fullNumber);
 		System.out.println(fullNumber.charAt(turnNum));
+
+		String[] textArr = fullNumber.split("");
+		System.out.println(textArr[turnNum]);
 	}
 }
